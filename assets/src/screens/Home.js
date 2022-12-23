@@ -11,7 +11,7 @@ export default function Home() {
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
-            headerRight: () => <RN.Button title="Add" onPress={() => navigation.navigate('Add')} />
+            headerRight: () => <RN.Button title="Agregar ➕" onPress={() => navigation.navigate('Add')} />
         })
     }, [])
     React.useEffect(() => {
@@ -33,8 +33,16 @@ export default function Home() {
         return unsuscribe;
     }, [])
     return (
-        <><RN.Text>Productos</RN.Text>
+        <><RN.Text style={styles.txt}>Productos</RN.Text>
             {products.map(product => <Product key={product.id}{...product} />)}
         </>
     )
 }
+
+const styles = RN.StyleSheet.create({
+    txt: {
+        textAlign:'center',
+        fontSize: 25,
+        fontWeight:'bold'
+    }
+});

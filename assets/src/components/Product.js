@@ -11,7 +11,6 @@ export default function Product({
     price,
     isSold,
 }) {
-
     const onDelete = () => {
         const docRef = doc(database, 'products', id);
         deleteDoc(docRef);
@@ -23,30 +22,35 @@ export default function Product({
             isSold: true,
         });
     }
-
-    return(
+    const onEdit2 = () => {
+        const docRef = doc(database, 'products', id);
+        updateDoc(docRef, {
+            isSold: false,
+        });
+    }
+    return (
         <RN.View>
             <RN.View style={styles.productContainer}>
-                <RN.View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <RN.View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <RN.Text style={styles.emoji}>{emoji}</RN.Text>
                     <AntDesign onPress={onDelete} name="delete" size={24} color="black" />
                 </RN.View>
                 <RN.Text style={styles.name}>{name}</RN.Text>
                 <RN.Text style={styles.price}>${price}</RN.Text>
                 {isSold ? (
-                    <RN.TouchableOpacity 
-                    style={[styles.button, {backgroundColor: 'gray'}]}>
-                    <RN.Text style={styles.buttonText}>Sold</RN.Text>
-                </RN.TouchableOpacity>
+                    <RN.TouchableOpacity
+                        onPress={onEdit2}
+                        style={[styles.button, { backgroundColor: 'gray' }]}>
+                        <RN.Text style={styles.buttonText}>Sold</RN.Text>
+                    </RN.TouchableOpacity>
                 )
-                : (
-                    <RN.TouchableOpacity 
-                    onPress={onEdit}
-                    style={styles.button}>
-                    <RN.Text style={styles.buttonText}>Purchase</RN.Text>
-                </RN.TouchableOpacity>
-                )}
-                
+                    : (
+                        <RN.TouchableOpacity
+                            onPress={onEdit}
+                            style={styles.button}>
+                            <RN.Text style={styles.buttonText}>Purchase</RN.Text>
+                        </RN.TouchableOpacity>
+                    )}
             </RN.View>
         </RN.View>
     )
@@ -77,7 +81,7 @@ const styles = RN.StyleSheet.create({
         marginVertical: 6,
         borderRadius: 8,
         alignItems: 'center'
-   },
+    },
     buttonText: {
         fontSize: 24,
         fontWeight: 'bold',
